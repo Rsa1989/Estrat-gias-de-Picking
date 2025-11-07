@@ -12,7 +12,7 @@ interface MaterialInputTableProps {
 
 const tableHeaders = [
   "Material", "Granel", "Distância <= 150km", 
-  "Consumo > 10x/mês", "Volume > 0.5m³", "Etapa", "Valor <= R$500", "Frágil", "Ações"
+  "Consumo > 10x/mês", "Volume > 0.5m³", "Etapa", "Solicita na OP", "Valor <= R$500", "Frágil", "Ações"
 ];
 
 const BooleanSelect: React.FC<{ value: BooleanString; onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void; disabled: boolean }> = ({ value, onChange, disabled }) => (
@@ -64,6 +64,7 @@ export const MaterialInputTable: React.FC<MaterialInputTableProps> = ({ material
               <td className={tdSelectClass}><BooleanSelect value={material.consumo} onChange={e => updateRow(material.id, 'consumo', e.target.value as BooleanString)} disabled={isLoading} /></td>
               <td className={tdSelectClass}><BooleanSelect value={material.volume} onChange={e => updateRow(material.id, 'volume', e.target.value as BooleanString)} disabled={isLoading} /></td>
               <td className={tdSelectClass}><BooleanSelect value={material.etapa} onChange={e => updateRow(material.id, 'etapa', e.target.value as BooleanString)} disabled={isLoading} /></td>
+              <td className={tdSelectClass}><BooleanSelect value={material.solicitaOP} onChange={e => updateRow(material.id, 'solicitaOP', e.target.value as BooleanString)} disabled={isLoading} /></td>
               <td className={tdSelectClass}><BooleanSelect value={material.valor} onChange={e => updateRow(material.id, 'valor', e.target.value as BooleanString)} disabled={isLoading} /></td>
               <td className={tdSelectClass}><BooleanSelect value={material.fragil} onChange={e => updateRow(material.id, 'fragil', e.target.value as BooleanString)} disabled={isLoading} /></td>
               <td className="px-4 py-2 whitespace-nowrap text-center">

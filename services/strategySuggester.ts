@@ -1,16 +1,31 @@
 import { Material } from '../types';
 
+// Define a prioridade de exibição das estratégias
+const STRATEGY_PRIORITY: { [key: string]: number } = {
+    '1.4- Crossdocking': 1,
+    '1.3- Entrega Diária': 2,
+    '1.1- Planos': 3,
+    '1.2- Kanban': 4,
+    '1.5- Estoque': 4,
+    '1.6- Consumível': 5,
+};
+
 export function suggestStrategies(material: Material): string[] {
-    const { consumo, volume, valor, distancia, etapa, granel, fragil } = material;
+    const { consumo, volume, valor, distancia, etapa, granel, fragil, solicitaOP } = material;
+
+    // REGRA DE PRIORIDADE MÁXIMA: Se for a granel, é sempre "Consumível".
+    if (granel === 'Sim') {
+        return ['1.6- Consumível'];
+    }
 
     const consumo_gt_10x = consumo === 'Sim';
 
-    // Regra exclusiva: Se o consumo for baixo (< 10x/mês), sugere apenas "Planos" e para.
+    // Regra exclusiva para baixo consumo: Se não for a granel e o consumo for baixo, sugere "Planos" e para.
     if (!consumo_gt_10x) {
         return ['1.1- Planos'];
     }
 
-    // --- As regras a seguir são executadas apenas se o consumo > 10x/mês ---
+    // --- As regras a seguir são executadas apenas se o consumo > 10x/mês e não for granel ---
     
     const suggestions: string[] = [];
     
@@ -18,8 +33,8 @@ export function suggestStrategies(material: Material): string[] {
     const valor_lte_500 = valor === 'Sim';
     const distancia_lte_150 = distancia === 'Sim';
     const is_etapa = etapa === 'Sim';
-    const is_granel = granel === 'Sim';
     const is_fragil = fragil === 'Sim';
+    const solicita_op = solicitaOP === 'Sim';
 
     // Rule 1.2 (Kanban): A condição original era (consumo_gt_10x && valor_lte_500).
     // Simplifica para verificar o baixo custo, já que o consumo já é alto.
@@ -32,8 +47,8 @@ export function suggestStrategies(material: Material): string[] {
         suggestions.push('1.3- Entrega Diária');
     }
 
-    // Rule 1.4 (Crossdocking): Fornecedor próximo E Material em etapa. Inalterada.
-    if (distancia_lte_150 && is_etapa) {
+    // Rule 1.4 (Crossdocking): Fornecedor próximo E Material em etapa E Solicitado na OP.
+    if (distancia_lte_150 && is_etapa && solicita_op) {
         suggestions.push('1.4- Crossdocking');
     }
 
@@ -45,15 +60,19 @@ export function suggestStrategies(material: Material): string[] {
         suggestions.push('1.5- Estoque');
     }
 
-    // Rule 1.6 (Consumível): Flag de Granel. Inalterada.
-    if (is_granel) {
-        suggestions.push('1.6- Consumível');
-    }
+    // A regra de Consumível foi movida para o topo, pois tem prioridade máxima.
 
     // Se nenhuma outra estratégia for aplicável, a estratégia padrão é Estoque.
     if (suggestions.length === 0) {
         suggestions.push('1.5- Estoque');
     }
+
+    // Ordena as sugestões com base na prioridade definida
+    suggestions.sort((a, b) => {
+        const priorityA = STRATEGY_PRIORITY[a] ?? 99;
+        const priorityB = STRATEGY_PRIORITY[b] ?? 99;
+        return priorityA - priorityB;
+    });
 
     return suggestions;
 }

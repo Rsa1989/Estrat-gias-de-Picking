@@ -9,6 +9,7 @@ export interface Material {
   consumo: BooleanString;
   volume: BooleanString;
   etapa: BooleanString;
+  solicitaOP: BooleanString;
   valor: BooleanString;
   fragil: BooleanString;
 }

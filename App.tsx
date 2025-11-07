@@ -15,6 +15,7 @@ const createNewMaterial = (): Material => ({
   consumo: 'Nao',
   volume: 'Nao',
   etapa: 'Nao',
+  solicitaOP: 'Nao',
   valor: 'Nao',
   fragil: 'Nao',
 });
@@ -61,6 +62,7 @@ const App: React.FC = () => {
           'consumo > 10x mês': 'consumo', // Alias para cabeçalho sem barra
           'volume > 0.5m³': 'volume',
           'etapa': 'etapa',
+          'solicita na op': 'solicitaOP',
           'valor <= r$500': 'valor',
           'frágil': 'fragil',
         };
@@ -121,6 +123,7 @@ const App: React.FC = () => {
         consumo: "Consumo > 10x/mês",
         volume: "Volume > 0.5m³",
         etapa: "Etapa",
+        solicitaOP: "Solicita na OP",
         valor: "Valor <= R$500",
         fragil: "Frágil",
         sugestao: "Estratégia Sugerida",
@@ -133,6 +136,7 @@ const App: React.FC = () => {
         [headers.consumo]: row.consumo,
         [headers.volume]: row.volume,
         [headers.etapa]: row.etapa,
+        [headers.solicitaOP]: row.solicitaOP,
         [headers.valor]: row.valor,
         [headers.fragil]: row.fragil,
         [headers.sugestao]: row.sugestao,
@@ -150,6 +154,7 @@ const App: React.FC = () => {
         { wch: 20 }, // Consumo
         { wch: 20 }, // Volume
         { wch: 10 }, // Etapa
+        { wch: 15 }, // Solicita na OP
         { wch: 20 }, // Valor
         { wch: 10 }, // Frágil
         { wch: 40 }, // Estratégia Sugerida
