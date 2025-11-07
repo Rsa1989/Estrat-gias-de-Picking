@@ -162,7 +162,7 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-gray-50 text-gray-800 font-sans p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         <header className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">Sugeridor de Estratégia de Estoque</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">Calculo de Estratégia de Estoque</h1>
           <p className="mt-2 text-md text-gray-600 max-w-3xl mx-auto">
             Insira os dados dos materiais na tabela abaixo ou importe um arquivo Excel. O sistema aplicará um conjunto de regras para sugerir a estratégia de estoque mais adequada.
           </p>
@@ -210,7 +210,7 @@ const App: React.FC = () => {
         </main>
 
         <footer className="text-center mt-12 text-sm text-gray-500">
-          <p>&copy; {new Date().getFullYear()} Sugeridor de Estratégia de Estoque. Todos os direitos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} Calculo de Estratégia de Estoque. Todos os direitos reservados.</p>
         </footer>
       </div>
     </div>

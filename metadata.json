@@ -1,5 +1,5 @@
 {
-  "name": "Sugeridor de Estratégia de Estoque",
+  "name": "Calculo de Estratégia de Estoque",
   "description": "Um aplicativo para sugerir estratégias de estoque para materiais com base em um conjunto de regras de negócios. Adicione linhas de materiais, preencha suas propriedades e clique em 'Sugerir Estratégias' para ver as recomendações.",
   "requestFramePermissions": []
 }
