@@ -6,7 +6,7 @@ interface ResultsTableProps {
 }
 
 const tableHeaders = [
-  "Material", "Granel", "Distância <= 150km", 
+  "Material", "Distância <= 150km", 
   "Consumo > 10x/mês", "Volume > 0.5m³", "Etapa", "Solicita na OP", "Valor <= R$500", "Frágil", "Estratégia Sugerida"
 ];
 
@@ -29,7 +29,6 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({ data }) => {
           {data.map(item => (
             <tr key={item.id} className="hover:bg-gray-50">
               <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">{item.material || '-'}</td>
-              <td className={tdBooleanResultClass}>{item.granel}</td>
               <td className={tdBooleanResultClass}>{item.distancia}</td>
               <td className={tdBooleanResultClass}>{item.consumo}</td>
               <td className={tdBooleanResultClass}>{item.volume}</td>

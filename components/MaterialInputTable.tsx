@@ -11,7 +11,7 @@ interface MaterialInputTableProps {
 }
 
 const tableHeaders = [
-  "Material", "Granel", "Distância <= 150km", 
+  "Material", "Distância <= 150km", 
   "Consumo > 10x/mês", "Volume > 0.5m³", "Etapa", "Solicita na OP", "Valor <= R$500", "Frágil", "Ações"
 ];
 
@@ -59,7 +59,6 @@ export const MaterialInputTable: React.FC<MaterialInputTableProps> = ({ material
           {materials.map((material) => (
             <tr key={material.id} className={isLoading ? 'opacity-50' : ''}>
               <td className="px-4 py-2 whitespace-nowrap"><input type="text" value={material.material} onChange={e => updateRow(material.id, 'material', e.target.value)} disabled={isLoading} className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm text-gray-900 disabled:bg-gray-100" /></td>
-              <td className={tdSelectClass}><BooleanSelect value={material.granel} onChange={e => updateRow(material.id, 'granel', e.target.value as BooleanString)} disabled={isLoading} /></td>
               <td className={tdSelectClass}><BooleanSelect value={material.distancia} onChange={e => updateRow(material.id, 'distancia', e.target.value as BooleanString)} disabled={isLoading} /></td>
               <td className={tdSelectClass}><BooleanSelect value={material.consumo} onChange={e => updateRow(material.id, 'consumo', e.target.value as BooleanString)} disabled={isLoading} /></td>
               <td className={tdSelectClass}><BooleanSelect value={material.volume} onChange={e => updateRow(material.id, 'volume', e.target.value as BooleanString)} disabled={isLoading} /></td>

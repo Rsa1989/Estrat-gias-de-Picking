@@ -7,25 +7,19 @@ const STRATEGY_PRIORITY: { [key: string]: number } = {
     '1.1- Planos': 3,
     '1.2- Kanban': 4,
     '1.5- Estoque': 4,
-    '1.6- Consumível': 5,
 };
 
 export function suggestStrategies(material: Material): string[] {
-    const { consumo, volume, valor, distancia, etapa, granel, fragil, solicitaOP } = material;
-
-    // REGRA DE PRIORIDADE MÁXIMA: Se for a granel, é sempre "Consumível".
-    if (granel === 'Sim') {
-        return ['1.6- Consumível'];
-    }
+    const { consumo, volume, valor, distancia, etapa, fragil, solicitaOP } = material;
 
     const consumo_gt_10x = consumo === 'Sim';
 
-    // Regra exclusiva para baixo consumo: Se não for a granel e o consumo for baixo, sugere "Planos" e para.
+    // Regra exclusiva para baixo consumo: Se o consumo for baixo, sugere "Planos" e para.
     if (!consumo_gt_10x) {
         return ['1.1- Planos'];
     }
 
-    // --- As regras a seguir são executadas apenas se o consumo > 10x/mês e não for granel ---
+    // --- As regras a seguir são executadas apenas se o consumo > 10x/mês ---
     
     const suggestions: string[] = [];
     
@@ -59,8 +53,6 @@ export function suggestStrategies(material: Material): string[] {
     if ((!volume_gt_0_5 && !valor_lte_500) || is_fragil) {
         suggestions.push('1.5- Estoque');
     }
-
-    // A regra de Consumível foi movida para o topo, pois tem prioridade máxima.
 
     // Se nenhuma outra estratégia for aplicável, a estratégia padrão é Estoque.
     if (suggestions.length === 0) {

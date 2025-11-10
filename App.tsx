@@ -10,7 +10,6 @@ declare var XLSX: any;
 const createNewMaterial = (): Material => ({
   id: crypto.randomUUID(),
   material: '',
-  granel: 'Nao',
   distancia: 'Nao',
   consumo: 'Nao',
   volume: 'Nao',
@@ -56,7 +55,6 @@ const App: React.FC = () => {
 
         const columnMapping: { [key: string]: keyof Omit<Material, 'id'> } = {
           'material': 'material',
-          'granel': 'granel',
           'distância <= 150km': 'distancia',
           'consumo > 10x/mês': 'consumo',
           'consumo > 10x mês': 'consumo', // Alias para cabeçalho sem barra
@@ -118,7 +116,6 @@ const App: React.FC = () => {
 
     const headers = {
         material: "Material",
-        granel: "Granel",
         distancia: "Distância <= 150km",
         consumo: "Consumo > 10x/mês",
         volume: "Volume > 0.5m³",
@@ -131,7 +128,6 @@ const App: React.FC = () => {
 
     const dataToExport = results.map(row => ({
         [headers.material]: row.material,
-        [headers.granel]: row.granel,
         [headers.distancia]: row.distancia,
         [headers.consumo]: row.consumo,
         [headers.volume]: row.volume,
@@ -149,7 +145,6 @@ const App: React.FC = () => {
     // Define larguras das colunas para melhor visualização
     worksheet['!cols'] = [
         { wch: 30 }, // Material
-        { wch: 10 }, // Granel
         { wch: 20 }, // Distância
         { wch: 20 }, // Consumo
         { wch: 20 }, // Volume
